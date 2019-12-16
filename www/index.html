@@ -37,7 +37,7 @@
       var key = "score";
 
       // ハイスコア
-      var high_score = 0;
+      var times = 0;
 
       function gu() {
         janken(hand_gu);
@@ -64,21 +64,19 @@
         // 勝敗ごとの処理
         if(result == judge_win) {
           win_num++;
-          $("#result2").html(win_num + "連勝!")
-        } else {
-          gameover();
-        }
+          $("#result2").html(win_num + "勝!")
+        } 
       }
 
       function newgame() {
-        // ハイスコア表示
+        // 対戦数表示
         JankenScore.order(key, true).fetch()
         .then(function(result){
-          high_score = result.get(key);
-          $("#highscore").html("ハイスコア：" + high_score + "連勝");
+          times = result.get(key);
+          $("#times").html("対戦数：" + times + "回戦目");
         })
         .catch(function(error){
-          $("#highscore").html("ハイスコア：" + high_score + "連勝");
+          $("#times").html("対戦数：" + times + "回戦目");
         });
   
         win_num = 0;
@@ -95,7 +93,7 @@
         if(win_num>0) {
           JankenScore.order(key, true).fetch()
           .then(function(result){
-            high_score = result.get(key);
+            times = result.get(key);
             if(win_num > high_score) {
               $("#result").html("ハイスコア更新!");
             }
@@ -126,7 +124,7 @@
 </head>
 <body>
   <h1 class="text-white bg-primary">じゃんけん 連勝チャレンジ！</h1>
-  <div id="highscore" class="text-white bg-secondary"></div>
+  <div id="times" class="text-white bg-secondary"></div>
   <div class="mx-auto" style="width: 200px">
     <a onclick="gu();" class="btn btn-outline-primary hand" role="button">ぐー</a>
     <a onclick="choki();" class="btn btn-outline-primary hand" role="button">ちょき</a>
