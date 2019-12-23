@@ -28,7 +28,7 @@
       // 勝敗結果表示用配列
       var judge_text = ["勝ち", "あいこ", "負け"];
 
-      // 連勝数記録
+      // 勝数記録
       var win_num = 0;
 
       // にふくら用おまじない
@@ -36,7 +36,7 @@
       var JankenScore = ncmb.DataStore("JankenScore");
       var key = "score";
 
-      // ハイスコア
+      // 対戦数
       var times = 0;
 
       function gu() {
@@ -94,7 +94,7 @@
           JankenScore.order(key, true).fetch()
           .then(function(result){
             times = result.get(key);
-            if(win_num > high_score) {
+            if(win_num > times) {
               $("#result").html("ハイスコア更新!");
             }
           })
@@ -105,7 +105,7 @@
           db = new JankenScore();
           db.set(key, win_num).save();
 
-          msg += win_num +  "連勝でした。<br>";
+          msg += win_num +  "勝でした。<br>";
         } else {
           msg += "1回も勝てませんでした。<br>次は頑張ろう";
         }
